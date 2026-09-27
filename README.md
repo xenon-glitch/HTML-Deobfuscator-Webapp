@@ -1,5 +1,3 @@
-ust copy everything below and paste it into your README.md file, then push it to GitHub. It includes all setup, usage, and troubleshooting steps in one clean file.
-
 markdown
 # 🔓 HTML Deobfuscator Web App
 
