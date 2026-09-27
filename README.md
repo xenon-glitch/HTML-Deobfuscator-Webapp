@@ -1,3 +1,6 @@
+ust copy everything below and paste it into your README.md file, then push it to GitHub. It includes all setup, usage, and troubleshooting steps in one clean file.
+
+markdown
 # 🔓 HTML Deobfuscator Web App
 
 A simple, self-hosted web application that removes obfuscation from HTML files (like those protected by PhpKobo) and returns a clean, readable, and fully functional HTML file.
@@ -31,29 +34,27 @@ Before you begin, ensure you have the following installed:
 
 ### Step 1: Clone the Repository
 
-```bash
+--bash
 git clone https://github.com/xenon-glitch/HTML-Deobfuscator-Webapp.git
 cd HTML-Deobfuscator-Webapp
 
-
-
-Step 2: Install Dependencies
+### Step 2: Install Dependencies
 Open your terminal (Command Prompt, PowerShell, or Terminal) in the project folder and run:
 
-bash
+--bash
 npm install
 Note: This might take a minute or two because it will download Chromium for Puppeteer (approx. 150MB).
 
-Step 3: Start the Server
+### Step 3: Start the Server
 Once the installation is complete, start the local server:
 
-bash
+--bash
 node server.js
 You should see a message in your terminal:
 
 text
 Webapp running at http://localhost:3000
-🖥️ How to Use
+### 🖥️ How to Use
 Open your web browser (Chrome, Edge, Firefox, etc.) and go to:
 http://localhost:3000
 
@@ -69,14 +70,14 @@ Your browser will automatically download a new file named yourfile_decrypted.htm
 
 Open that downloaded file in your browser, and it should now be clean, readable, and free of any obfuscation code!
 
-🧰 Troubleshooting
+### 🧰 Troubleshooting
 Problem	Solution
 Error: Cannot find module 'express'	You forgot to run npm install. Run it in the project folder.
 Error: listen EADDRINUSE: address already in use :::3000	Another app is using port 3000. Change the port in server.js (e.g., const PORT = 3001;) and restart.
 Puppeteer fails to launch Chrome	Ensure Google Chrome is installed. If it still fails, try running the terminal as Administrator.
 The output file is empty or corrupted	The obfuscation might be too complex or use a different method. Open an issue with a sample file.
 npm install hangs or fails	Ensure you have a stable internet connection. The download is large.
-🏗️ Project Structure
+### 🏗️ Project Structure
 text
 HTML-Deobfuscator-Webapp/
 ├── public/
@@ -86,7 +87,7 @@ HTML-Deobfuscator-Webapp/
 ├── server.js               # Express server: handles uploads & downloads
 ├── package.json            # Project dependencies & scripts
 └── README.md               # This file
-🤝 Contributing
+### 🤝 Contributing
 Contributions are welcome! If you have a better way to clean the HTML or want to add features:
 
 Fork the repository.
@@ -99,10 +100,10 @@ Push to the branch (git push origin feature/AmazingFeature).
 
 Open a Pull Request.
 
-📜 License
+### 📜 License
 This project is licensed under the MIT License. You are free to use, modify, and distribute it as you see fit.
 
-⚠️ Disclaimer
+### ⚠️ Disclaimer
 This tool is for educational and personal use only. Always respect the terms of service of the websites you are interacting with. The developers are not responsible for any misuse of this tool.
 
 Enjoy clean code! 🎉
