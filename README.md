@@ -34,22 +34,23 @@ Before you begin, ensure you have the following installed:
 
 ### Step 1: Clone the Repository
 
---bash
+```bash
 git clone https://github.com/xenon-glitch/HTML-Deobfuscator-Webapp.git
 cd HTML-Deobfuscator-Webapp
-
+```
 ### Step 2: Install Dependencies
 Open your terminal (Command Prompt, PowerShell, or Terminal) in the project folder and run:
 
---bash
+```bash
 npm install
 Note: This might take a minute or two because it will download Chromium for Puppeteer (approx. 150MB).
-
+```
 ### Step 3: Start the Server
 Once the installation is complete, start the local server:
 
---bash
+```bash
 node server.js
+```
 You should see a message in your terminal:
 
 text
@@ -120,3 +121,4 @@ Once you save this file in your project folder, open your terminal in that folde
 git add README.md
 git commit -m "Update README with full setup instructions"
 git push origin main
+```
