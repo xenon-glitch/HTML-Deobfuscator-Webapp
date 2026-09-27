@@ -29,15 +29,14 @@ Before you begin, ensure you have the following installed:
 
 ## 🚀 Installation & Setup
 
-### Step 1: Get the Code
-You can either clone the repository or download the ZIP and extract it.
+### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/html-deobfuscator-webapp.git
-cd html-deobfuscator-webapp
+git clone https://github.com/xenon-glitch/HTML-Deobfuscator-Webapp.git
+cd HTML-Deobfuscator-Webapp
 
-(Replace YOUR_USERNAME with your actual GitHub username).
-''''
+
+
 Step 2: Install Dependencies
 Open your terminal (Command Prompt, PowerShell, or Terminal) in the project folder and run:
 
@@ -79,7 +78,7 @@ The output file is empty or corrupted	The obfuscation might be too complex or us
 npm install hangs or fails	Ensure you have a stable internet connection. The download is large.
 🏗️ Project Structure
 text
-html-deobfuscator-webapp/
+HTML-Deobfuscator-Webapp/
 ├── public/
 │   └── index.html          # Frontend UI (HTML/CSS/JS)
 ├── uploads/                # Temporary folder for uploaded files (auto-created)
@@ -108,4 +107,15 @@ This tool is for educational and personal use only. Always respect the terms of 
 
 Enjoy clean code! 🎉
 
+text
 
+---
+
+### 🚀 Final Push to GitHub
+
+Once you save this file in your project folder, open your terminal in that folder and run:
+
+```bash
+git add README.md
+git commit -m "Update README with full setup instructions"
+git push origin main
