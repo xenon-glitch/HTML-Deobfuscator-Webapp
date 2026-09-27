@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Deobfuscator – Remove PhpKobo Obfuscation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e2a3a 0%, #0f1724 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        .sub {
+            text-align: center;
+            color: #b0c4de;
+            margin-bottom: 2rem;
+        }
+        .dropzone {
+            border: 2px dashed rgba(255,255,255,0.4);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.2);
+        }
+        .dropzone.drag-over {
+            border-color: #4c9aff;
+            background: rgba(76,154,255,0.1);
+        }
+        .dropzone p {
+            margin: 0;
+            color: #cbd5e1;
+        }
+        .dropzone .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        button:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.4);
+            color: #e2e8f0;
+        }
+        .status.error {
+            background: rgba(220,38,38,0.2);
+            color: #fecaca;
+        }
+        .status.success {
+            background: rgba(34,197,94,0.2);
+            color: #bbf7d0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #64748b;
+            font-size: 0.75rem;
+        }
+        a {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔓 HTML Deobfuscator</h1>
+        <div class="sub">Remove PhpKobo-style obfuscation • Works with Edge/Chrome</div>
+        
+        <div class="dropzone" id="dropzone">
+            <div class="icon">📁</div>
+            <p>Drag & drop an HTML file here</p>
+            <p style="font-size:0.8rem; margin-top:8px;">or click to select</p>
+            <input type="file" id="fileInput" accept=".html,.htm" />
+        </div>
+        
+        <button id="uploadBtn" disabled>Select a file first</button>
+        
+        <div class="status" id="status">Ready</div>
+        <footer>Your file is processed locally via secure upload. No data is stored.</footer>
+    </div>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const statusDiv = document.getElementById('status');
+        
+        let selectedFile = null;
+        
+        // Click on dropzone triggers file input
+        dropzone.addEventListener('click', () => fileInput.click());
+        
+        // Drag & drop events
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('drag-over');
+        });
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('drag-over');
+        });
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (fileInput.files.length) handleFile(fileInput.files[0]);
+        });
+        
+        function handleFile(file) {
+            if (!file.name.endsWith('.html') && !file.name.endsWith('.htm')) {
+                statusDiv.innerText = '❌ Please select an HTML file (.html or .htm)';
+                statusDiv.className = 'status error';
+                selectedFile = null;
+                uploadBtn.disabled = true;
+                uploadBtn.innerText = 'Select a file first';
+                return;
+            }
+            selectedFile = file;
+            statusDiv.innerText = `✅ Selected: ${file.name}`;
+            statusDiv.className = 'status success';
+            uploadBtn.disabled = false;
+            uploadBtn.innerText = '🚀 Deobfuscate & Download';
+        }
+        
+        uploadBtn.addEventListener('click', async () => {
+            if (!selectedFile) return;
+            
+            const formData = new FormData();
+            formData.append('htmlFile', selectedFile);
+            
+            uploadBtn.disabled = true;
+            uploadBtn.innerText = 'Processing... (this may take 10-20 seconds)';
+            statusDiv.innerText = '⏳ Deobfuscating in headless browser... Please wait.';
+            statusDiv.className = 'status';
+            
+            try {
+                const response = await fetch('/deobfuscate', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    // Trigger download
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = selectedFile.name.replace(/\.html?$/, '_decrypted.html');
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    statusDiv.innerText = '✅ Deobfuscation complete! Download started.';
+                    statusDiv.className = 'status success';
+                } else {
+                    const error = await response.json();
+                    statusDiv.innerText = `❌ Server error: ${error.error}`;
+                    statusDiv.className = 'status error';
+                }
+            } catch (err) {
+                statusDiv.innerText = `❌ Network error: ${err.message}`;
+                statusDiv.className = 'status error';
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.innerText = '🚀 Deobfuscate & Download';
+                selectedFile = null;
+                fileInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
